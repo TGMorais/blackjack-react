@@ -1,0 +1,7 @@
+body, #root {
+    width: 100%;
+    height: 100%;
+    background: #403D39;
+    font-family: 'Anton', 'Lucida Grande', 'Roboto', 'Helvetica', 'sans serif';
+    font-size: 20px;
+}
