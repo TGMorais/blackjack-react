@@ -6,19 +6,22 @@ import Deck from "./components/deck/Deck";
 import Hand from "./components/hand/Hand";
 import GameInfo from "./components/gameInfo/GameInfo";
 
+import bgImage from "./img/pattern.png"
+
 const bjStyle = {
   width: "100%",
   minWidth: "400px",
   minHeight: "400px",
   //   height: "100%",
   height: "75vh",
-  backgroundColor: "#EA2727",
+  // backgroundColor: "#EA2727",
   maxWidth: "1024px",
   margin: "10vh auto 0 auto",
   borderRadius: "6px",
   padding: "1em",
   position: "relative",
-  textAlign: "center"
+  textAlign: "center",
+  backgroundImage: `url("${bgImage}")`
 };
 
 class Blackjack extends React.Component {
