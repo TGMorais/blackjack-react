@@ -1,17 +1,10 @@
-import { saveGame, loadGame } from "./utils/storage";
+import { saveGame, loadGame, withSavedGame } from "./utils/storage";
 import blackjack from "../logic/blackjack";
 
-const gameStart = (prevState, props) => {
-  // const deck = blackjack.deck.newDeck();
-  // const
-  // const playerHand = blackjack.deck.dealCards(deck, 2)
-  // const playerHand = blackjack.deck.dealCards(deck, 3)
-
-  return {
-    ...prevState,
-    started: true
-  };
-};
+const Hands = {
+  player: 'player',
+  dealer: 'dealer'
+}
 
 const gameLoad = prevState => {
   // const savedState = loadGame();
@@ -23,16 +16,42 @@ const gameLoad = prevState => {
   return prevState;
 };
 
-const withSaveGame = fn => {
-  return (prevState, props) => {
-    const state = fn(prevState, props);
-    saveGame(state);
+const gameStart = (prevState, props) => {
+  let deck = blackjack.deck.createShuffled();
 
-    return state;
+  return {
+    ...prevState,
+    deck,
+    started: true
+  };
+};
+
+const gameDeal = playerKey => {
+  return (prevState, props) => {
+    const player = prevState[playerKey];
+    if(!player) {
+      throw new Error(`Player not found: ${playerKey}`)
+    }
+
+    const { deck, hand } = blackjack.deck.deal(prevState.deck, 1);
+    const newHand = [ ...(player.hand||[]), ...hand ];
+    
+    const newPlayerState = { ...player, hand: newHand }
+    //
+    const ns = {
+      ...prevState,
+      deck,      
+      [playerKey]: newPlayerState,
+    };
+    console.log('calculare gameDeal', ns)
+    return ns;
   };
 };
 
 export default {
   load: gameLoad,
-  start: withSaveGame(gameStart)
+  start: withSavedGame(gameStart),
+  //
+  dealPlayer: gameDeal(Hands.player),
+  dealDealer: gameDeal(Hands.dealer),
 };

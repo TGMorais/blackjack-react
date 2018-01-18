@@ -1,9 +1,11 @@
 import React from "react";
 
 import Blackjack from "./Blackjack";
+import { pipe } from '../state/utils/functional';
+
 import gameState from "../state/gameState";
-import gameActions from '../state/gameActions';
-import  { loadGame } from '../state/utils/storage';
+import gameActions from "../state/gameActions";
+
 
 class GameContainer extends React.Component {
   state = gameState;
@@ -17,12 +19,18 @@ class GameContainer extends React.Component {
   };
 
   handleStart = () => {
-    this.setState(gameActions.start);
+    const startGameActions = pipe(
+      gameActions.start,
+      gameActions.dealPlayer,
+      gameActions.dealPlayer,
+      gameActions.dealDealer
+    )
+
+    this.setState(startGameActions)
   };
 
   render() {
     const { state, handleStart } = this;
-
     return <Blackjack gameState={state} onStart={handleStart} />;
   }
 }

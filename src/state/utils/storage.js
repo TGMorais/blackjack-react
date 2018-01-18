@@ -13,3 +13,13 @@ export const loadGame = () => {
     return null;
   }
 };
+
+
+export const withSavedGame = fn => {
+  return (prevState, props) => {
+    const state = fn(prevState, props);
+    saveGame(state);
+
+    return state;
+  };
+};
