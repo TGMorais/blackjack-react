@@ -1,5 +1,6 @@
 const blackjack = {
   BUST_SCORE: 21,
+  DECK_SIZE: 52,
   create: () => {
     const suits = ["spades", "diamonds", "hearts", "clubs"];
     const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];

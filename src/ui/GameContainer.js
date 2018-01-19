@@ -7,10 +7,6 @@ import PlayerActions from "../state/playerActions";
 
 import Game from "./Game";
 
-const mapActionsToPlayer = {
-  [PlayerActions.HIT]: gameActions.dealPlayer
-};
-
 class GameContainer extends React.Component {
   state = gameState;
 

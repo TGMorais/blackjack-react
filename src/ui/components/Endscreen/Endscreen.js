@@ -6,9 +6,11 @@ const Endscreen = ({ won, onStart }) => {
   const wonOrLost = won ? "won" : "lost";
   return (
     <div className="end-screen flex- flex-align-end1">
-      <div>
-        Game Over! You
-        <span className={wonOrLost}> {wonOrLost}</span>
+      <div className="message">
+        <div>Game over!</div>
+        <div>
+          <span>You</span> <span className={wonOrLost}> {wonOrLost}</span>
+        </div>
       </div>
       <GameButton onClick={onStart}>Restart Game</GameButton>
     </div>

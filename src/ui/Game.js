@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-import { GAMESTATEShape, GameCardShape, GAMESTATES } from "../state/gameState";
+import { GameCardShape, GAMESTATES } from "../state/gameState";
 
 import "./styles/base.css";
 import "./styles/flex.css";
@@ -26,7 +26,6 @@ class Game extends React.Component {
       return null;
     }
 
-    const { deck, dealer, player } = gameState;
     let gameContent = null;
 
     if (gameState.state === GAMESTATES.UNSTARTED) {

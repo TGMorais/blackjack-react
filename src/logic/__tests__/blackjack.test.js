@@ -1,6 +1,6 @@
 import blackjack from "../blackjack";
 
-const DECKSIZE = 52; //?? (move inside blackjack)
+const DECKSIZE = blackjack.DECK_SIZE;
 
 describe("Creates new deck", () => {
   let deck;

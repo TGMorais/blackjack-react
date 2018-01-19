@@ -1,4 +1,4 @@
-import { saveGame, loadGame, withSavedGame } from "./utils/storage";
+import { loadGame, withSavedGame } from "./utils/storage";
 import blackjack from "../logic/blackjack";
 import gameState, { GAMESTATES } from "./gameState";
 import { playerStateUpdate } from './playerActions'
@@ -15,7 +15,7 @@ const loadAction = prevState => {
     ...savedState
   };
   //noop for now
-  return prevState;
+  // return prevState;
 };
 
 const startAction = (prevState, props) => {
