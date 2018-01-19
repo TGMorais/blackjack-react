@@ -6,12 +6,13 @@
     padding: .2rem;
     background: white;
     border-radius: 6px;
-    color: #ffffff;
     position: relative;
     font-size: 3rem;
     line-height: 100%;
-    background: #ff004b;
-    border: 2px solid #ff004b
+    /* background: #ff004b; */
+    color: #c71d16;
+    background: #fff;
+    border: 2px solid #d32822;
 }
 
 .card.flipped {
@@ -28,7 +29,7 @@
     top: 0;
     left: 0;
     margin: 0 5px;
-    font-size: 2rem;
+    font-size: 1.7rem;
 }
 
 .card .name {
