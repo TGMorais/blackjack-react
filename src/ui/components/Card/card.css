@@ -14,6 +14,11 @@
     border: 2px solid #ff004b
 }
 
+.card.flipped {
+    background-color:#d90429;
+    border-color: #d90429;
+}
+
 .card:not(:first-child) {
     margin-left: -4rem;
 }

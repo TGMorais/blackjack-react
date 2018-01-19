@@ -1,4 +1,5 @@
-const deck = {
+const blackjack = {
+  BUST_SCORE: 21,
   create: () => {
     const suits = ["spades", "diamonds", "hearts", "clubs"];
     const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
@@ -43,7 +44,7 @@ const deck = {
   },
 
   createShuffled: () => {
-      return deck.shuffle(deck.create())
+    return blackjack.shuffle(blackjack.create());
   },
 
   /**
@@ -53,34 +54,51 @@ const deck = {
   deal: (deck, numCards) => {
     //todo: asset deck = array, numCards = number
 
-    
     if (numCards > deck.length) {
       throw new Error(
-        `It's impossible to deal ${numCards}. Deck only has ${deck.length}!`
+        `It's impossible to deal ${numCards} cards. Deck only has ${deck.length} left!`
       );
     }
 
     const newdeck = [...deck];
-    const hand = [];
+    const cards = [];
     //
 
     while (numCards > 0) {
-      hand.push(newdeck.shift());
+      cards.push(newdeck.shift());
       numCards--;
     }
 
     return {
       deck: newdeck,
-      hand
+      cards
     };
+  },
+
+  flipCard: card => {
+    return { ...card, flipped: !(card.flipped) };
+  },
+
+  calculateHand: hand => {
+    const cardValues = hand.filter(card => !(card.flipped)).map(card => card.value)
+    return blackjack.calculateHandValue(cardValues);
+  },
+
+  calculateHandValue: cardValues => {
+    let total = cardValues.reduce((accumulator, curr, prev) => {
+      return accumulator + curr;
+    }, 0);
+
+    if (total > blackjack.BUST_SCORE) {
+      let numAces = cardValues.filter(x => x === 11).length;
+      while (numAces > 0 && total > blackjack.BUST_SCORE) {
+        total -= 10;
+        numAces--;
+      }
+    }
+
+    return total;
   }
-};
-
-const players = {};
-
-const blackjack = {
-  deck: deck,
-  players: players
 };
 
 export default blackjack;

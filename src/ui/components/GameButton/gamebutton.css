@@ -1,5 +1,5 @@
-.controls button {
-    /* font-family: 'Dosis', 'sans serif';
+.gamebutton {
+    font-family: 'Dosis', 'sans serif';
     font-weight: bold;
     margin: 0 1rem;
     padding: 1rem;
@@ -9,6 +9,10 @@
     color: #ececec;
     border-color: #ff004b;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);    
+}
 
-     */
+.gamebutton:hover {
+    cursor: pointer;
+    border-color: #ececec;
+    transform: scale(1.2);
 }

@@ -1,82 +1,83 @@
 import React from "react";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
-import { GameStateShape, GameCardShape } from "../state/gameState"
-
+import { GAMESTATEShape, GameCardShape, GAMESTATES } from "../state/gameState";
 
 import "./styles/base.css";
 import "./styles/flex.css";
 
 import Controls from "./components/Controls/Controls";
 import Deck from "./components/Deck/Deck";
-import Dealer from "./components/Dealer/Dealer";
 import Player from "./components/Player/Player";
+import Score from "./components/Score/Score";
+import Startscreen from "./components/Startscreen/Startscreen";
+import Endscreen from "./components/Endscreen/Endscreen";
 
-import Startscreen from "./components/Startscreen/Startscreen"
-
-
-
-const bjStyle = {
-  width: "100%",
-  minWidth: "400px",
-  minHeight: "400px",
-  height: "75vh",
-  maxWidth: "1024px",
-  margin: "10vh auto 0 auto",
-  borderRadius: "6px",
-  padding: "1em",
-  position: "relative",
-  textAlign: "center",
-  backgroundSize: `20px 20px`
-};
-
+import "./game.css";
 class Game extends React.Component {
   static propTypes = {
     gameState: GameCardShape
-  }
+  };
 
   render() {
     const { gameState, onStart, onAction } = this.props;
+
+    if (!gameState) {
+      return null;
+    }
+
     const { deck, dealer, player } = gameState;
+    let gameContent = null;
 
-    console.log('will render table', gameState)
+    if (gameState.state === GAMESTATES.UNSTARTED) {
+      gameContent = <Startscreen onStart={onStart} />;
+    } else {
+      gameContent = (
+        <Gamescreen
+          gameState={gameState}
+          onStart={onStart}
+          onAction={onAction}
+        />
+      );
+    }
 
-    const game = gameState.started ? (
-      <Gamescreen {...gameState} onAction={onAction} />
-    ) : (
-      <Startscreen onStart={onStart} />
-    );
-
-    return (
-      <div className="blackjack flex" style={bjStyle}>
-        {game}
-      </div>
-    );
+    return <div className="blackjack flex">{gameContent}</div>;
   }
 }
 
-const Gamescreen = ({deck, player, dealer, onAction}) => {
-  console.log('will render gamescreen', dealer)
+const Gamescreen = ({ gameState, onAction, onStart }) => {
+  const { deck, player, dealer, state } = gameState;
   return (
     <React.Fragment>
-      <div className="flex-1">
-        <Deck cards={deck}/>
+      <div className="flex-1 hide-mobile">
+        <Deck cards={deck} />
       </div>
-      <div className="flex-2">
-        <div className="flex-1">
-          <Dealer {...dealer} />
-        </div>
-        <div className="flex-1">
-          <Player {...player} />
-        </div>
-        <div className="flex-half flex flex-centered">
-          <Controls onAction={onAction} />
-        </div>
-      </div>
-      <div className="flex-1">
+      <div className="flex-2 flex flex-col">
+        {renderPlayerSection(dealer)}
+        {renderPlayerSection(player)}
+        {state === GAMESTATES.FINISHED
+          ? renderEndScreen(!player.busted, onStart)
+          : renderControls(onAction)}
       </div>
     </React.Fragment>
   );
 };
+
+const renderPlayerSection = player => (
+  <div className="flex-1 flex">
+    <Player className="flex-1" {...player} />
+    <Score score={player.score} />
+  </div>
+);
+
+const renderControls = onAction => (
+  <div className="flex-half flex flex-centered">
+    <Controls onAction={onAction} />
+  </div>
+);
+
+const renderEndScreen = (won, onStart) => (
+  <Endscreen won={won} onStart={onStart} />
+);
 
 export default Game;

@@ -1,57 +1,78 @@
 import { saveGame, loadGame, withSavedGame } from "./utils/storage";
 import blackjack from "../logic/blackjack";
+import gameState, { GAMESTATES } from "./gameState";
+import { playerStateUpdate } from './playerActions'
 
-const Hands = {
-  player: 'player',
-  dealer: 'dealer'
-}
+const HANDS = {
+  player: "player",
+  dealer: "dealer"
+};
 
-const gameLoad = prevState => {
+const loadAction = prevState => {
   const savedState = loadGame();
   return {
     ...prevState,
     ...savedState
   };
   //noop for now
-  // return prevState;
+  return prevState;
 };
 
-const gameStart = (prevState, props) => {
-  let deck = blackjack.deck.createShuffled();
+const startAction = (prevState, props) => {
+  let deck = blackjack.createShuffled();
 
   return {
-    ...prevState,
+    ...gameState,
     deck,
-    started: true
+    state: GAMESTATES.STARTED
   };
 };
 
-const gameDeal = playerKey => {
+
+const makeDealAction = (playerKey, flipped) => {
   return (prevState, props) => {
     const player = prevState[playerKey];
-    if(!player) {
-      throw new Error(`Player not found: ${playerKey}`)
+
+    if (!player) {
+      throw new Error(`Player (key) not found in app state: ${playerKey}`);
     }
 
-    const { deck, hand } = blackjack.deck.deal(prevState.deck, 1);
-    const newHand = [ ...(player.hand||[]), ...hand ];
+    if (!player.hand) {
+      player.hand = [];
+    }
+
+    // 1 - deal x new cards, get new state of deck + cards delt
+    const { deck, cards } = blackjack.deal(prevState.deck, 1);
     
-    const newPlayerState = { ...player, hand: newHand }
+    //2 - update states
+    const newDeckState = deck;
+    const newPlayerState = playerStateUpdate(player, cards, flipped);
+    let newGameState = prevState.state;
+
+    //3 - handle end of game
+    let score = newPlayerState.score;
+    if(score > blackjack.BUST_SCORE) {
+      newGameState = GAMESTATES.FINISHED;
+    }
+
     //
-    const ns = {
+    const newAppState = {
       ...prevState,
-      deck,      
-      [playerKey]: newPlayerState,
+      state: newGameState,
+      deck: newDeckState,
+      [playerKey]: newPlayerState
     };
-    console.log('calculare gameDeal', ns)
-    return ns;
+
+    return newAppState;
   };
 };
 
+
+
 export default {
-  load: gameLoad,
-  start: withSavedGame(gameStart),
+  load: loadAction,
+  start: withSavedGame(startAction),
   //
-  dealPlayer: withSavedGame(gameDeal(Hands.player)),
-  dealDealer: withSavedGame(gameDeal(Hands.dealer)),
+  dealPlayer: withSavedGame(makeDealAction(HANDS.player)),
+  dealDealer: withSavedGame(makeDealAction(HANDS.dealer, true))
 };

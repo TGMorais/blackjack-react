@@ -21,11 +21,18 @@ const withNormalize = fn => arg => fn(normalize(arg));
 const getName = withNormalize(n => NAMES[n] || n);
 const getSuit = withNormalize(s => SUITS[s] || s);
 
-const Card = ({ suit, name }) => {
+const Card = ({ suit, name, flipped }) => {
   return (
-    <div className="card">
-      <div className="suit">{getSuit(suit)}</div>
-      <div className="name">{getName(name || "")}</div>
+    <div className={`card ${flipped ? 'flipped': ''}`}>
+      {
+        !flipped ? 
+        (
+          <React.Fragment>
+            <div className="suit">{getSuit(suit)}</div>
+            <div className="name">{getName(name || "")}</div>
+          </React.Fragment>
+        ) : null
+      }
     </div>
   );
 };

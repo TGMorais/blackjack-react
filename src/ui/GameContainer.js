@@ -1,12 +1,15 @@
 import React from "react";
 
-import { pipe } from '../state/utils/functional';
+import { pipe } from "../state/utils/functional";
 import gameState from "../state/gameState";
 import gameActions from "../state/gameActions";
 import PlayerActions from "../state/playerActions";
 
 import Game from "./Game";
 
+const mapActionsToPlayer = {
+  [PlayerActions.HIT]: gameActions.dealPlayer
+};
 
 class GameContainer extends React.Component {
   state = gameState;
@@ -15,29 +18,43 @@ class GameContainer extends React.Component {
     this.setState(gameActions.load);
   };
 
-  handlePlayerAction = (e) => {
+  handlePlayerAction = e => {
     const action = e.target.dataset.action;
-    if(!PlayerActions[action]) {
-      throw new Error(`Player action not valid! ${action}`)
+    if (!PlayerActions[action]) {
+      throw new Error(`Player action not valid! ${action}`);
     }
 
-    console.log("handleGameAction", action);
+    if (PlayerActions[action] === PlayerActions.HIT) {
+      this.setState(gameActions.dealPlayer);
+      return;
+    }
+
+    if (PlayerActions[action] === PlayerActions.STICK) {
+      this.setState(gameActions.dealDealer);
+      return;
+    }
   };
 
   handleStart = () => {
     const startGameActions = pipe(
       gameActions.start,
       gameActions.dealPlayer,
+      gameActions.dealDealer,
       gameActions.dealPlayer,
       gameActions.dealDealer
-    )
+    );
 
-    this.setState(startGameActions)
+    this.setState(startGameActions);
   };
 
   render() {
-    const { state, handleStart, handlePlayerAction } = this;
-    return <Game gameState={state} onStart={handleStart} onAction={handlePlayerAction} />;
+    return (
+      <Game
+        gameState={this.state}
+        onStart={this.handleStart}
+        onAction={this.handlePlayerAction}
+      />
+    );
   }
 }
 

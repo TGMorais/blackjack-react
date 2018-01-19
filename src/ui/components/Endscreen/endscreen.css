@@ -1,0 +1,29 @@
+@-webkit-keyframes FadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+  
+.end-screen {
+    font-size: 2rem;
+    width: 100%;
+    animation: FadeIn 1s;
+}
+
+.end-screen .gamebutton {
+    margin-top: .5em;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.end-screen .won {
+    color: #22b322;
+    font-size: 1.5em;
+    animation: FadeIn .5s 3;
+}
+
+.end-screen .lost {
+    color: #d90429;
+    font-size: 1.5em;
+    animation: FadeIn .5s 3;
+    
+}

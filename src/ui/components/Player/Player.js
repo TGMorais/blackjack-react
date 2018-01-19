@@ -3,11 +3,10 @@ import Hand from '../Hand/Hand';
 
 import './player.css';
 
-const Player = ({ hand = [] }) => {
+const Player = ({ hand = [], className }) => {
   return (
-      <div className="player">
+      <div className={`player ${className}`}>
           <Hand cards={hand} />
-          <p>Player hand</p>
       </div>
   )
 };

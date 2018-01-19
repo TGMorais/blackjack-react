@@ -1,6 +1,8 @@
 .hand {
     border: 1px solid rgba(77, 77, 77, 0.48);
     border-radius: 10px;
+    overflow: hidden;
+    flex-wrap: nowrap;
 }
 .hand .card { 
     display: inline-block;
