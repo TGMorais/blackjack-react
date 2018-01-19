@@ -15,6 +15,12 @@ export const loadGame = () => {
 };
 
 
+/**
+ * Takes a action function saves the game with the returned state
+ * saves it and keeps going
+ * @param {Function} fn
+ * @returns {Function} wrapper action function
+ */
 export const withSavedGame = fn => {
   return (prevState, props) => {
     const state = fn(prevState, props);

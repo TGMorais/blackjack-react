@@ -7,7 +7,12 @@ export default {
 };
 
 
-
+/**
+ * 
+ * @param {Object} player - state object from app state
+ * @param {Object[]} newCards - new cards delt 
+ * @param {Boolean} flipped - needs to handle flipping cards (refactor this)
+ */
 export const playerStateUpdate = (player, newCards, flipped) => {
   let newHand = [...player.hand, ...newCards];
 
@@ -29,8 +34,11 @@ export const playerStateUpdate = (player, newCards, flipped) => {
   };
 };
 
-//when the "player" is the dealer and hes got two card only (first round)
-//the second card is flipped
+/**
+ * 
+ * @param {Object[]} hand - array of card objects
+ * @returns {Object[]} hand - array of card object with flipped cards
+ */
 const handleFlippingCardRuleThing = hand => {
   if (hand.length === 2) {
     hand[1] = blackjack.flipCard(hand[1]);

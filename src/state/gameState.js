@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
 
+/**
+ * Game/App can have three states
+ */
 export const GAMESTATES = {
     UNSTARTED: 'UNSTARTED',
     STARTED: 'STARTED',
     FINISHED: 'FINISHED'
 }
 
+/**
+ * Shape of the App State
+ */
 const gameState = {
     state: GAMESTATES.UNSTARTED,
     player:  {
@@ -19,7 +25,8 @@ export default gameState
 
 
 /**
- * 
+ * Anotations (for now) for PropTypes
+ * since there is no Typescript/flow
  */
 export const GameCardShape = PropTypes.shape({
     name: PropTypes.oneOfType([

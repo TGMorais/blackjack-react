@@ -7,13 +7,23 @@ import PlayerActions from "../state/playerActions";
 
 import Game from "./Game";
 
+/**
+ * GameContainer
+ * Top level and only statefull component of the app
+ * Passes game state down as props
+ */
 class GameContainer extends React.Component {
   state = gameState;
 
   componentWillMount = () => {
+    //Game state is saved in storage, so load it 
     this.setState(gameActions.load);
   };
 
+  /**
+   * Responds to a game action event
+   * Fire correspondant action to mutate the state
+   */
   handlePlayerAction = e => {
     const action = e.target.dataset.action;
     if (!PlayerActions[action]) {
@@ -31,7 +41,12 @@ class GameContainer extends React.Component {
     }
   };
 
+  /**
+   * Responds on game start event
+   * Fires all the actions for the game state to start
+   */
   handleStart = () => {
+    //Pipe all functions, since they are all "state mutations" (same signitare)
     const startGameActions = pipe(
       gameActions.start,
       gameActions.dealPlayer,

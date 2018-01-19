@@ -14,6 +14,10 @@ import Startscreen from "./components/Startscreen/Startscreen";
 import Endscreen from "./components/Endscreen/Endscreen";
 
 import "./game.css";
+
+/**
+ * Game component - top level stateless component
+ **/
 class Game extends React.Component {
   static propTypes = {
     gameState: GameCardShape
@@ -26,24 +30,33 @@ class Game extends React.Component {
       return null;
     }
 
-    let gameContent = null;
-
-    if (gameState.state === GAMESTATES.UNSTARTED) {
-      gameContent = <Startscreen onStart={onStart} />;
-    } else {
-      gameContent = (
-        <Gamescreen
-          gameState={gameState}
-          onStart={onStart}
-          onAction={onAction}
-        />
-      );
-    }
-
-    return <div className="blackjack flex">{gameContent}</div>;
+    const unstarted = gameState.state === GAMESTATES.UNSTARTED;
+    return (
+      <div className="blackjack flex">
+        {unstarted ? (
+          <Startscreen onStart={onStart} />
+        ) : (
+          <Gamescreen
+            gameState={gameState}
+            onStart={onStart}
+            onAction={onAction}
+          />
+        )}
+      </div>
+    );
   }
 }
 
+/**
+ * Main game screen component
+ * All the child component are smaller functional component
+ * that make up the games UI
+ * 
+ * There are only two events fired
+ * onStart - fires to starts/restarts the game
+ * onAction - fires to handle a game action (HIT/STICK)
+ * 
+ */
 const Gamescreen = ({ gameState, onAction, onStart }) => {
   const { deck, player, dealer, state } = gameState;
   return (

@@ -1,6 +1,13 @@
+/**
+ * Blackjacks core logic is handled here
+ */
 const blackjack = {
   BUST_SCORE: 21,
   DECK_SIZE: 52,
+
+  /**
+   * Creates new deck (array of card objects)
+   */
   create: () => {
     const suits = ["spades", "diamonds", "hearts", "clubs"];
     const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
@@ -21,6 +28,9 @@ const blackjack = {
     return deck;
   },
 
+  /**
+   * Shuffles a deck of cards
+   */
   shuffle: deck => {
     if (!(deck instanceof Array)) {
       throw new Error("Deck not an array");
@@ -42,6 +52,7 @@ const blackjack = {
       i++;
     }
     return _deck;
+    blackjack.deal()
   },
 
   createShuffled: () => {
@@ -49,12 +60,11 @@ const blackjack = {
   },
 
   /**
-   * Deals numCards cards
-   *
+   * Takes numCards from deck and return new cards and new deck state
+   * @param {object[]} deck
+   * @param {number} numCards
    */
   deal: (deck, numCards) => {
-    //todo: asset deck = array, numCards = number
-
     if (numCards > deck.length) {
       throw new Error(
         `It's impossible to deal ${numCards} cards. Deck only has ${deck.length} left!`
