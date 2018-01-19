@@ -7,13 +7,13 @@ const Hands = {
 }
 
 const gameLoad = prevState => {
-  // const savedState = loadGame();
-  // return {
-  //   ...prevState,
-  //   ...savedState
-  // };
+  const savedState = loadGame();
+  return {
+    ...prevState,
+    ...savedState
+  };
   //noop for now
-  return prevState;
+  // return prevState;
 };
 
 const gameStart = (prevState, props) => {
@@ -52,6 +52,6 @@ export default {
   load: gameLoad,
   start: withSavedGame(gameStart),
   //
-  dealPlayer: gameDeal(Hands.player),
-  dealDealer: gameDeal(Hands.dealer),
+  dealPlayer: withSavedGame(gameDeal(Hands.player)),
+  dealDealer: withSavedGame(gameDeal(Hands.dealer)),
 };

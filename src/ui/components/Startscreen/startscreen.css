@@ -1,0 +1,21 @@
+.start-screen button {
+    font-weight: bold;
+    padding: .5em;
+    font-size: 2em;
+    border-radius: 4px;
+    /* background: #D90429; */
+    background: transparent;
+    color: #ff004b;
+    border-color: #da0f4b;
+}
+
+.start-screen button:hover {
+    cursor: pointer;
+    border-color: #ff004b;
+    color: #fff;
+}
+
+.start-screen button:active {
+    color: #ff004b;
+    border-color: #fff;
+}

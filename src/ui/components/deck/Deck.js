@@ -1,8 +1,10 @@
 import React from 'react'
 
+import './deck.css';
 const Deck = ({cards = []}) => (
     <div className="deck">
-        {cards.length}!!
+        <div className="deck-card"></div>
+        <div className="deck-card"></div>
     </div>
 )
 

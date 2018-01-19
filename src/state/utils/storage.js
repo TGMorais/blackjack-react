@@ -17,7 +17,9 @@ export const loadGame = () => {
 
 export const withSavedGame = fn => {
   return (prevState, props) => {
+    debugger;
     const state = fn(prevState, props);
+    console.log('saving game')
     saveGame(state);
 
     return state;

@@ -24,12 +24,14 @@
 .flex-align-end {
     align-items: flex-end;
 }
+/*get some sass on this yo*/
 .flex-1 {
     flex: 1
 }
 .flex-2 {
     flex: 2
 }
+
 .flex-half {
     flex: 0.5
 }

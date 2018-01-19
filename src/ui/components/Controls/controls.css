@@ -1,0 +1,33 @@
+.controls button {
+    font-family: 'Dosis', 'sans serif';
+    font-weight: bold;
+    margin: 0 1rem;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    font-size: 2rem;
+    background: transparent;
+    color: #ececec;
+    /* border-color: #999; */
+    border-color: #ff004b;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);    
+
+    
+}
+
+.controls button:hover {
+    cursor: pointer;
+    /* color: #ff004b; */
+    border-color: #ececec;
+    transform: scale(1.2);
+
+}
+
+.controls button:active {
+    
+}
+
+/* .controls .control-hit {
+}
+
+.controls .control-stick {
+} */

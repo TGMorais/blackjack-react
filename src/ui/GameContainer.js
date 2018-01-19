@@ -1,9 +1,11 @@
 import React from "react";
 
-import BlackjackTable from "./BlackjackTable";
 import { pipe } from '../state/utils/functional';
 import gameState from "../state/gameState";
 import gameActions from "../state/gameActions";
+import PlayerActions from "../state/playerActions";
+
+import Game from "./Game";
 
 
 class GameContainer extends React.Component {
@@ -13,8 +15,13 @@ class GameContainer extends React.Component {
     this.setState(gameActions.load);
   };
 
-  handleGameAction = () => {
-    console.log("handleGameAction");
+  handlePlayerAction = (e) => {
+    const action = e.target.dataset.action;
+    if(!PlayerActions[action]) {
+      throw new Error(`Player action not valid! ${action}`)
+    }
+
+    console.log("handleGameAction", action);
   };
 
   handleStart = () => {
@@ -29,8 +36,8 @@ class GameContainer extends React.Component {
   };
 
   render() {
-    const { state, handleStart } = this;
-    return <BlackjackTable gameState={state} onStart={handleStart} />;
+    const { state, handleStart, handlePlayerAction } = this;
+    return <Game gameState={state} onStart={handleStart} onAction={handlePlayerAction} />;
   }
 }
 
