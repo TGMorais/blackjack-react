@@ -1,12 +1,19 @@
 import React from "react";
+import PropTypes from 'prop-types'
+
+import { GameStateShape, GameCardShape } from '../state/gameState';
+
+
 import "./styles/base.css";
 import "./styles/flex.css";
+
 import Controls from "./components/controls/Controls";
 import Deck from "./components/deck/Deck";
-import Hand from "./components/hand/Hand";
-import GameInfo from "./components/gameInfo/GameInfo";
+import Dealer from "./components/dealer/Dealer";
 
 import bgImage from "./img/pattern.png"
+
+
 
 const bjStyle = {
   width: "100%",
@@ -24,14 +31,19 @@ const bjStyle = {
   backgroundImage: `url("${bgImage}")`
 };
 
-class Blackjack extends React.Component {
+class BlackjackTable extends React.Component {
+  static propTypes = {
+    gameState: GameCardShape
+  }
+
   render() {
-    const { props } = this;
-    const { gameState, onStart } = props;
-    // const { state } = game;
+    const { gameState, onStart } = this.props;
+    const { deck, dealer, player } = gameState;
+
+    console.log('will render table', gameState)
 
     const game = gameState.started ? (
-      <Gamescreen />
+      <Gamescreen {...gameState} />
     ) : (
       <Startscreen onStart={onStart} />
     );
@@ -44,6 +56,10 @@ class Blackjack extends React.Component {
   }
 }
 
+// BlackjackTable.propTypes = {
+//   gameState: GameStateShape
+// }
+
 const Startscreen = ({ onStart }) => {
   return (
     <div className="start-screen flex flex-1 flex-centered">
@@ -52,24 +68,29 @@ const Startscreen = ({ onStart }) => {
   );
 };
 
-const Gamescreen = () => {
+const Gamescreen = ({deck, player, dealer}) => {
+  console.log('will render gamescreen', dealer)
   return (
     <React.Fragment>
       <div className="flex-1">
-        <Deck />
+        <Deck cards={deck}/>
       </div>
       <div className="flex-2 flex flex-col">
-        <div className="flex-1">Dealer</div>
-        <div className="flex-1">Player</div>
+        <div className="flex-1">
+          <Dealer {...dealer} />
+        </div>
+        <div className="flex-1">
+          {/* <Player /> */}
+        </div>
         <div className="flex-1 flex flex-centered flex-align-end">
           <Controls />
         </div>
       </div>
       <div className="flex-1">
-        <GameInfo />
+        {/* <GameInfo /> */}
       </div>
     </React.Fragment>
   );
 };
 
-export default Blackjack;
+export default BlackjackTable;

@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Deck = ({style}) => (
-    <div className="deck" style={style}>
-        I'm the deck component
+const Deck = ({cards = []}) => (
+    <div className="deck">
+        {cards.length}!!
     </div>
 )
 

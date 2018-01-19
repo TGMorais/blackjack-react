@@ -1,8 +1,7 @@
 import React from "react";
 
-import Blackjack from "./Blackjack";
+import BlackjackTable from "./BlackjackTable";
 import { pipe } from '../state/utils/functional';
-
 import gameState from "../state/gameState";
 import gameActions from "../state/gameActions";
 
@@ -31,7 +30,7 @@ class GameContainer extends React.Component {
 
   render() {
     const { state, handleStart } = this;
-    return <Blackjack gameState={state} onStart={handleStart} />;
+    return <BlackjackTable gameState={state} onStart={handleStart} />;
   }
 }
 
