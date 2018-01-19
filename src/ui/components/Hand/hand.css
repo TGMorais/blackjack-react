@@ -3,6 +3,7 @@
     border-radius: 10px;
     overflow: hidden;
     flex-wrap: nowrap;
+    margin: 5px 0;
 }
 .hand .card { 
     display: inline-block;
