@@ -14,8 +14,6 @@ const loadAction = prevState => {
     ...prevState,
     ...savedState
   };
-  //noop for now
-  // return prevState;
 };
 
 const startAction = (prevState, props) => {
@@ -29,6 +27,12 @@ const startAction = (prevState, props) => {
 };
 
 
+/**
+ * Makes a function to deal with a specific player's turn
+ * It returns the new app's state (with the new player state)
+ * @param {HANDS} playerKey - Game has two players, "player" and "dealer"
+ * @param {bool} flipped - If the player has to flip his cards in the begginig 
+ */
 const makeDealAction = (playerKey, flipped) => {
   return (prevState, props) => {
     const player = prevState[playerKey];
@@ -46,7 +50,9 @@ const makeDealAction = (playerKey, flipped) => {
     
     //2 - update states
     const newDeckState = deck;
+    //
     const newPlayerState = playerStateUpdate(player, cards, flipped);
+    //
     let newGameState = prevState.state;
 
     //3 - handle end of game

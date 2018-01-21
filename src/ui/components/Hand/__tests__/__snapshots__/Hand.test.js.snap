@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="hand flex"
+/>
+`;
+
+exports[`renders with cards correctly 1`] = `
+<div
+  className="hand flex"
+>
+  <div
+    className="card "
+  >
+    <div
+      className="suit"
+    >
+      ♠️
+    </div>
+    <div
+      className="name"
+    >
+      A
+    </div>
+  </div>
+  <div
+    className="card "
+  >
+    <div
+      className="suit"
+    >
+      ♠️
+    </div>
+    <div
+      className="name"
+    >
+      2
+    </div>
+  </div>
+  <div
+    className="card "
+  >
+    <div
+      className="suit"
+    >
+      ♠️
+    </div>
+    <div
+      className="name"
+    >
+      3
+    </div>
+  </div>
+</div>
+`;

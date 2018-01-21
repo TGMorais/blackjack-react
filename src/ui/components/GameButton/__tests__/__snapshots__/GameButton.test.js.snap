@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Change state when hovered 1`] = `
+<button
+  className="gamebutton"
+  onClick={[Function]}
+>
+  Button
+</button>
+`;
+
+exports[`renders correctly 1`] = `
+<button
+  className="gamebutton"
+>
+  Button
+</button>
+`;

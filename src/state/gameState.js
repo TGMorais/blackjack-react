@@ -19,7 +19,7 @@ export default gameState
 
 
 /**
- * 
+ * No TS/Flow yet so best next thing for now
  */
 export const GameCardShape = PropTypes.shape({
     name: PropTypes.oneOfType([

@@ -19,6 +19,7 @@
   },
   "main": "index.js",
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "react-test-renderer": "^16.2.0"
   }
 }

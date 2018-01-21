@@ -14,7 +14,12 @@ export const loadGame = () => {
   }
 };
 
-
+/**
+ * Takes a (prevstate,props) function and return a new one
+ * that saves the prevState to localstorage
+ * @param {Function} fn 
+ * @return {Function} wrapped fn
+ */
 export const withSavedGame = fn => {
   return (prevState, props) => {
     const state = fn(prevState, props);

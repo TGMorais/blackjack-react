@@ -1,6 +1,11 @@
 const blackjack = {
   BUST_SCORE: 21,
   DECK_SIZE: 52,
+
+  /**
+   * Creates a new deck of cards (somewhat ordered)
+   * @return {Array} array of card objects
+   */
   create: () => {
     const suits = ["spades", "diamonds", "hearts", "clubs"];
     const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
@@ -21,6 +26,9 @@ const blackjack = {
     return deck;
   },
 
+  /**
+   * Takes a deck, returns a new shuffled deck
+   */
   shuffle: deck => {
     if (!(deck instanceof Array)) {
       throw new Error("Deck not an array");
@@ -44,13 +52,18 @@ const blackjack = {
     return _deck;
   },
 
+  /**
+   * @returns a new shuffled deck
+   */
   createShuffled: () => {
     return blackjack.shuffle(blackjack.create());
   },
 
   /**
    * Deals numCards cards
-   *
+   * @param {Array} deck - array of cards
+   * @param {Number} numCards - number of cards to deal
+   * @returns {{deck, hand}}  - An object with the new deck state and the cards delt
    */
   deal: (deck, numCards) => {
     //todo: asset deck = array, numCards = number
@@ -80,11 +93,16 @@ const blackjack = {
     return { ...card, flipped: !(card.flipped) };
   },
 
+  //Calculates valud of hand (not counting flipped cards)
   calculateHand: hand => {
     const cardValues = hand.filter(card => !(card.flipped)).map(card => card.value)
     return blackjack.calculateHandValue(cardValues);
   },
 
+  /**
+   * @param {array} - array of card values
+   * @returns {number} - value of hand 
+   */
   calculateHandValue: cardValues => {
     let total = cardValues.reduce((accumulator, curr, prev) => {
       return accumulator + curr;
