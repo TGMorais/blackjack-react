@@ -8,6 +8,9 @@ const HANDS = {
   dealer: "dealer"
 };
 
+/**
+ * Loads the game state from storage
+ */
 const loadAction = prevState => {
   const savedState = loadGame();
   return {
@@ -16,6 +19,9 @@ const loadAction = prevState => {
   };
 };
 
+/**
+ * Resets the game state to the initial state (new deck)
+ */
 const startAction = (prevState, props) => {
   let deck = blackjack.createShuffled();
 
@@ -55,13 +61,13 @@ const makeDealAction = (playerKey, flipped) => {
     //
     let newGameState = prevState.state;
 
-    //3 - handle end of game
+    //3 - handle end of game if one player has busted
     let score = newPlayerState.score;
     if(score > blackjack.BUST_SCORE) {
       newGameState = GAMESTATES.FINISHED;
     }
 
-    //
+    //Build new app state
     const newAppState = {
       ...prevState,
       state: newGameState,

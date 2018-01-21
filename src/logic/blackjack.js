@@ -1,3 +1,6 @@
+/**
+ * Blackjacks core logic is handled here
+ */
 const blackjack = {
   BUST_SCORE: 21,
   DECK_SIZE: 52,
@@ -50,6 +53,7 @@ const blackjack = {
       i++;
     }
     return _deck;
+    blackjack.deal()
   },
 
   /**
@@ -66,8 +70,6 @@ const blackjack = {
    * @returns {{deck, hand}}  - An object with the new deck state and the cards delt
    */
   deal: (deck, numCards) => {
-    //todo: asset deck = array, numCards = number
-
     if (numCards > deck.length) {
       throw new Error(
         `It's impossible to deal ${numCards} cards. Deck only has ${deck.length} left!`
