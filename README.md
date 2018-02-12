@@ -2,14 +2,19 @@
 
 _/Tiago Morais/_
 
+> _This was produced as an exercise, as such, the code is incomplete and may (probably does) contain some bugs_
+
 This is a (basic) version of the game blackjack in Javascript.  
 
-The UI is built with `React` and vanila `CSS`.   
+The UI is built with `React` and vanilla `CSS`.   
 Given how simple the game's state is, the game logic is written in vanilla `Javascript`.
 
-For speed sake, the app was bootstraped using `create-react-app` cli
+For speed sake, the app was bootstraped using `create-react-app`
 
---- 
+####  
+<img src="blackjack-screenshot.png" alt="Blackjack in react" height="300">
+
+---
 
 ## App structure
 ```
